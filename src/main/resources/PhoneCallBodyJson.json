@@ -1,0 +1,170 @@
+{
+  "type": "object",
+  "required": true,
+  "id": "urn:jsonschema:com:webex:dsagent:biz:bo:CallOutRequest",
+  "properties": {
+    "referUri": {
+      "type": "object",
+      "required": false,
+      "default": null,
+      "$ref": "urn:jsonschema:com:webex:dsagent:biz:bo:DialableKey",
+      "description": "Global IVR will refer the call to the referUri",
+      "example": "sip:locus-xxxx@l2sip dns"
+    },
+    "notifyUri": {
+      "type": "object",
+      "required": false,
+      "$ref": "urn:jsonschema:java:net:URI",
+      "default": null,
+      "description": "Global IVR will notify the call state to the notifyUri. Default value is null",
+      "example": "http://173.37.48.133:8080/poros/api/v1/notifications"
+    },
+    "requireConfirmation": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "The require press one. true: press one, false : need not press one",
+      "example": false
+    },
+    "serviceProvider": {
+      "type": "PstnServiceProvider",
+      "required": false,
+      "default": "Spark",
+      "enum": "WebEx, Spark",
+      "description": "which service provides the PSTN service. WebEx or Spark",
+      "example": "Spark"
+    },
+    "destination": {
+      "type": "object",
+      "required": true,
+      "$ref": "urn:jsonschema:com:webex:dsagent:biz:bo:DialableKey",
+      "description": "phone number or SIP URL",
+      "example": "1-408-12345 or sip:example@spark.com"
+    },
+    "destinationType": {
+      "type": "object",
+      "required": false,
+      "default": "PSTN",
+      "enum": "TP, PSTN",
+      "$ref": "urn:jsonschema:com:webex:dsagent:biz:bo:DestinationType",
+      "description": "the destination device type",
+      "example": "PSTN"
+    },
+    "postDialSequence": {
+      "type": "string",
+      "required": false,
+      "default": "",
+      "description": "The DTMF sequence: the DTMF will be sent in the call out procedure If the destination is a 3rd conference, the DTMF sequence is necessary, The hand shaking is interaction based on the DTMFs.The digits-timer peer is composed by either formats:T[n]H[d] or P[n]D[d],The letter 'T' means the timer of WebEx audio system waiting for the digits received from 3rd conference, n is the number of seconds, from 1 to 999; The letter 'H' means the digits expected from 3rd conference, d is 1 or more DTMF digits which composed by '0'-'9', '#', '*', the max length is 32;The letter 'P' means the pause time before WebEx audio system sending out digits to 3rd conference, n is the number of seconds, from 1 to 999;The letter 'D' means the digits to be sent out, d is 1 or more DTMF digits which composed by '0'-'9', '#', '*', the max length is 32;The T-H pair must be appeared in pair, the P-D pair must be appeared in pair.",
+      "example": "T5H###P3D12345678#P1D111111#T10H***",
+      "minLength": 0,
+      "maxLength": 256
+    },
+    "siteID": {
+      "type": "long",
+      "required": false,
+      "default": 0,
+      "description": "As the relationship between siteID and CCA customer, play back the relative audio prompt if the site is configurable as customized audio prompt if siteID == 0, play back the default audio prompt as the service provider",
+      "example": 1000,
+      "minimum": 0,
+      "maximum": 10000000000
+    },
+    "siteURL": {
+      "type": "string",
+      "required": false,
+      "default": "",
+      "description": "WebEx site URL. default value is empty.",
+      "example": "cisco.webex.com",
+      "minLength": 0,
+      "maxLength": 256
+    },
+    "userName": {
+      "type": "string",
+      "required": false,
+      "default": "",
+      "description": "end user name",
+      "example": "test",
+      "minLength": 0,
+      "maxLength": 256
+    },
+    "userID": {
+      "type": "string",
+      "required": false,
+      "default": "",
+      "description": "end user ID",
+      "example": "100",
+      "minLength": 0,
+      "maxLength": 256
+    },
+    "userType": {
+      "type": "string",
+      "required": false,
+      "default": "Participant",
+      "enum": "Host, Participant",
+      "description": "the type of the user: Host or Participant",
+      "example": "Participant",
+      "minLength": 0,
+      "maxLength": 256
+    },
+    "isPrivateTalk": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Whether the user will enter private talk by invite by phone",
+      "example": false
+    },
+    "privateTalksponsorID": {
+      "type": "string",
+      "required": false,
+      "default": "",
+      "description": "who initiate the private talk",
+      "example": "1",
+      "minLength": 0,
+      "maxLength": 256
+    },
+    "meetingID": {
+      "type": "string",
+      "required": false,
+      "default": "",
+      "description": "WebEx Meeting ID/Meeting Key",
+      "example": "1000",
+      "minLength": 0,
+      "maxLength": 256
+    },
+    "meetingName": {
+      "type": "string",
+      "required": false,
+      "default": "",
+      "description": "WebEx Meeting Name. default value is empty",
+      "example": "test's meeting room",
+      "minLength": 0,
+      "maxLength": 256
+    },
+    "attendeeID": {
+      "type": "string",
+      "required": false,
+      "default": "",
+      "description": "End user's attendee ID in one room",
+      "example": "3",
+      "minLength": 0,
+      "maxLength": 256
+    },
+    "subConfID": {
+      "type": "string",
+      "required": false,
+      "default": "",
+      "description": "End user's sub conference ID in one room",
+      "example": "100",
+      "minLength": 0,
+      "maxLength": 256
+    },
+    "languageCode": {
+      "type": "object",
+      "$ref": "urn:jsonschema:com:webex:dsagent:biz:bo:LanguageCode",
+      "required": false,
+      "default": "en_US",
+      "enum": "en_US,fr_FR,it_IT,es_ES,zh_CN,de_DE,en_GB,nl_NL,ja_JP,pt_BR,ru_RU,es_MX,ko_KR,zh_TW,da_DK,tr_TR",
+      "description": "which language Code perfer,english->en_US,french->fr_FR,italian->it_IT,spanish->es_ES,chinese->zh_CN,german->de_DE,ukenglish->en_GB,dutch->nl_NL,japanese->ja_JP,portuguese->pt_BR,russian->ru_RU,laspanish->es_MX,korean->ko_KR,trachinese->zh_TW,danish->da_DK,turkish->tr_TR",
+      "example": "en_US"
+    }
+  }
+}
